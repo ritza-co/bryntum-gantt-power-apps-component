@@ -1,5 +1,5 @@
-import { databasePrefix } from "./constants";
-import { IInputs } from "./generated/ManifestTypes";
+import { databasePrefix } from './constants';
+import { IInputs } from './generated/ManifestTypes';
 
 export interface IBryntumGanttComponentProps {
   context?: ComponentFramework.Context<IInputs>;
@@ -14,10 +14,10 @@ type RecordItem = {
   GanttDependency;
 
 export type SyncData = {
-  action: "dataset" | "add" | "remove" | "update";
+  action: 'dataset' | 'add' | 'remove' | 'update';
   records: RecordItem[];
   store: {
-    id: "tasks" | "dependencies";
+    id: 'tasks' | 'dependencies';
   };
 };
 

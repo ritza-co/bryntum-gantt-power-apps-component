@@ -1,7 +1,7 @@
-import BryntumGanttComponent from "./BryntumGanttComponent";
-import { IBryntumGanttComponentProps } from "./BryntumGanttComponent.types";
-import { IInputs, IOutputs } from "./generated/ManifestTypes";
-import * as React from "react";
+import BryntumGanttComponent from './BryntumGanttComponent';
+import { IBryntumGanttComponentProps } from './BryntumGanttComponent.types';
+import { IInputs, IOutputs } from './generated/ManifestTypes';
+import * as React from 'react';
 
 export class BryntumGantt implements ComponentFramework.ReactControl<IInputs, IOutputs> {
     private theComponent: ComponentFramework.ReactControl<IInputs, IOutputs>;
@@ -25,10 +25,10 @@ export class BryntumGantt implements ComponentFramework.ReactControl<IInputs, IO
         state: ComponentFramework.Dictionary
     ): void {
         this.notifyOutputChanged = notifyOutputChanged;
-        Object.defineProperty(window, "globalThis", {
-            value: window,
-            writable: false,
-          });
+        Object.defineProperty(window, 'globalThis', {
+            value    : window,
+            writable : false
+        });
     }
 
     /**
@@ -36,13 +36,13 @@ export class BryntumGantt implements ComponentFramework.ReactControl<IInputs, IO
      * @param context The entire property bag available to control via Context Object; It contains values as set up by the customizer mapped to names defined in the manifest, as well as utility functions
      * @returns ReactElement root react element for the control
      */
-  public updateView(
-    context: ComponentFramework.Context<IInputs>
-  ): React.ReactElement {
-    const props: IBryntumGanttComponentProps = { context };
+    public updateView(
+        context: ComponentFramework.Context<IInputs>
+    ): React.ReactElement {
+        const props: IBryntumGanttComponentProps = { context };
 
-    return React.createElement(BryntumGanttComponent, props);
-  }
+        return React.createElement(BryntumGanttComponent, props);
+    }
 
     /**
      * It is called by the framework prior to a control receiving new data.
