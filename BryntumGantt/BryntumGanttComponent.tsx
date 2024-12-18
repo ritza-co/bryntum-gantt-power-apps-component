@@ -12,6 +12,7 @@ import {
 import LoadingSpinner from './LoadingSpinner';
 import { ganttConfig } from './ganttConfig';
 import { databasePrefix, dependenciesDataverseTableName, tasksDataverseTableName } from './constants';
+import { DependencyModel, TaskModel } from '@bryntum/gantt';
 
 function removeTasksDataColumnPrefixes(entities: ComponentFramework.WebApi.Entity[]) {
     return entities.map((entity: ComponentFramework.WebApi.Entity) => {
@@ -43,7 +44,7 @@ function removeTasksDataColumnPrefixes(entities: ComponentFramework.WebApi.Entit
             deadline               : entity[`${databasePrefix}deadline`],
             direction              : entity[`${databasePrefix}direction`],
             index                  : entity[`${databasePrefix}index`]
-        } as GanttTask;
+        } as Partial<TaskModel>;
     });
 }
 
@@ -60,7 +61,7 @@ function removeDependenciesDataColumnPrefixes(entities: ComponentFramework.WebAp
             to       : entity[`${databasePrefix}to`][`${databasePrefix}${tasksDataverseTableName}id`],
             fromSide : entity[`${databasePrefix}fromside`],
             toSide   : entity[`${databasePrefix}toside`]
-        } as GanttDependency;
+        } as Partial<DependencyModel>;
     });
 }
 
@@ -68,8 +69,8 @@ const BryntumGanttComponent: FunctionComponent<IBryntumGanttComponentProps> = (
     props
 ) => {
     const [data, setData] = React.useState<{
-    tasks: GanttTask[];
-    dependencies: GanttDependency[];
+    tasks: TaskModel[];
+    dependencies: DependencyModel[];
   }>();
 
     const gantt = useRef<BryntumGantt>(null);
@@ -97,10 +98,10 @@ const BryntumGanttComponent: FunctionComponent<IBryntumGanttComponentProps> = (
             ]);
             if (tasks && dependencies) {
                 setData({
-                    tasks        : removeTasksDataColumnPrefixes(tasks.entities) as GanttTask[],
+                    tasks        : removeTasksDataColumnPrefixes(tasks.entities) as TaskModel[] ,
                     dependencies : removeDependenciesDataColumnPrefixes(
                         dependencies.entities
-                    ) as GanttDependency[]
+                    ) as DependencyModel[]
                 });
             }
         }
@@ -446,6 +447,7 @@ const BryntumGanttComponent: FunctionComponent<IBryntumGanttComponentProps> = (
             ref={gantt}
             tasks={data.tasks}
             dependencies={data.dependencies}
+            // @ts-ignore
             onDataChange={syncData}
             {...ganttConfig}
         />

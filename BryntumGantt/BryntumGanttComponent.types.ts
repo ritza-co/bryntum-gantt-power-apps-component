@@ -1,3 +1,4 @@
+import { Grid, Model, Store } from '@bryntum/gantt';
 import { databasePrefix } from './constants';
 import { IInputs } from './generated/ManifestTypes';
 
@@ -14,12 +15,13 @@ type RecordItem = {
   GanttDependency;
 
 export type SyncData = {
-  action: 'dataset' | 'add' | 'remove' | 'update';
+  source: Grid;
+  store: Store;
+  action: 'remove' | 'removeAll' | 'add' | 'clearchanges' | 'filter' | 'update' | 'dataset' | 'replace';
+  record:  RecordItem;
   records: RecordItem[];
-  store: {
-    id: 'tasks' | 'dependencies';
-  };
-};
+  changes: object;
+}
 
 export type GanttTask = {
   id: string;
