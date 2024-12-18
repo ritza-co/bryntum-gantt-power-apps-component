@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BryntumGantt as OriginalBryntumGantt } from '@bryntum/gantt-react';
+import { BryntumGantt } from '@bryntum/gantt-react';
 import { FunctionComponent, useRef } from 'react';
 import {
     GanttDependency,
@@ -13,9 +13,7 @@ import LoadingSpinner from './LoadingSpinner';
 import { ganttConfig } from './ganttConfig';
 import { databasePrefix, dependenciesDataverseTableName, tasksDataverseTableName } from './constants';
 
-const BryntumGantt: React.ComponentType<any> = OriginalBryntumGantt as any;
-
-function removeTasksDataColumnPrefixes(entities: any[]) {
+function removeTasksDataColumnPrefixes(entities: ComponentFramework.WebApi.Entity[]) {
     return entities.map((entity: ComponentFramework.WebApi.Entity) => {
         return {
             id                     : entity[`${databasePrefix}${tasksDataverseTableName}id`],
@@ -49,7 +47,7 @@ function removeTasksDataColumnPrefixes(entities: any[]) {
     });
 }
 
-function removeDependenciesDataColumnPrefixes(entities: any[]) {
+function removeDependenciesDataColumnPrefixes(entities: ComponentFramework.WebApi.Entity[]) {
     return entities.map((entity: ComponentFramework.WebApi.Entity) => {
         return {
             id       : entity[`${databasePrefix}${dependenciesDataverseTableName}id`],
@@ -74,7 +72,7 @@ const BryntumGanttComponent: FunctionComponent<IBryntumGanttComponentProps> = (
     dependencies: GanttDependency[];
   }>();
 
-    const gantt = useRef<OriginalBryntumGantt>(null);
+    const gantt = useRef<BryntumGantt>(null);
 
     React.useEffect(() => {
         fetchRecords();
