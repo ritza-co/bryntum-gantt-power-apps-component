@@ -443,11 +443,11 @@ const BryntumGanttComponent: FunctionComponent<IBryntumGanttComponentProps> = (
     };
 
     return data ? (
+        // @ts-ignore
         <BryntumGantt
             ref={gantt}
             tasks={data.tasks}
             dependencies={data.dependencies}
-            // @ts-ignore
             onDataChange={syncData}
             {...ganttConfig}
         />
