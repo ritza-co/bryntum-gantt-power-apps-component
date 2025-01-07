@@ -1,4 +1,4 @@
-import { Grid, Model, Store } from '@bryntum/gantt';
+import { Grid, Store } from '@bryntum/gantt';
 import { databasePrefix } from './constants';
 import { IInputs } from './generated/ManifestTypes';
 
@@ -50,7 +50,11 @@ export type GanttTask = {
   calendar: number;
   deadline: string;
   direction: string;
-  index: number;
+  parentId: string;
+  orderedParentIndex: number;
+  meta: {
+    modified: Partial<GanttTask>;
+  };
 };
 
 const KEY_ID = `${databasePrefix}id` as const;
@@ -80,7 +84,8 @@ const KEY_EXPANDED = `${databasePrefix}expanded` as const;
 const KEY_CALENDAR = `${databasePrefix}calendar` as const;
 const KEY_DEADLINE = `${databasePrefix}deadline` as const;
 const KEY_DIRECTION = `${databasePrefix}direction` as const;
-const KEY_INDEX = `${databasePrefix}index` as const;
+const KEY_PARENT_ID = `${databasePrefix}parentid` as const;
+const KEY_ORDERED_PARENT_INDEX = `${databasePrefix}orderedparentindex` as const;
 
 export type GanttTaskDataverse = {
   [KEY_ID]: string;
@@ -109,7 +114,8 @@ export type GanttTaskDataverse = {
   [KEY_CALENDAR]: number;
   [KEY_DEADLINE]: string;
   [KEY_DIRECTION]: string;
-  [KEY_INDEX]: number;
+  [KEY_PARENT_ID]: string;
+  [KEY_ORDERED_PARENT_INDEX]: number;
 };
 
 export type GanttDependency = {
