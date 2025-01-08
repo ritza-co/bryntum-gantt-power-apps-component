@@ -2,12 +2,12 @@ import type { BryntumGanttProps } from '@bryntum/gantt-react';
 
 
 const ganttConfig: Partial<BryntumGanttProps> = {
-  taskStore : {
+    taskStore : {
         // @ts-ignore
         tree              : true,
         transformFlatData : true,
     },
-    columns       : [{ type : 'name', field : 'name', width : 250, text: 'the name' }],
+    columns       : [{ type : 'name', field : 'name', width : 250 }],
     viewPreset    : 'weekAndDayLetter',
     barMargin     : 10,
     selectionMode : {
